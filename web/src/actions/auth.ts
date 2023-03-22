@@ -30,6 +30,8 @@ export const login = (data: {}) => async (dispatch: AppDispatch) => {
       setAuthToken(userData.jwt);
       updateAPIConfig({ authToken: userData.jwt });
       dispatch(setAuthStatus(true));
+
+      return true;
    } catch (err) {
       dispatch(setAuthStatus(false));
    }

@@ -24,7 +24,10 @@ const Login: React.FC<Props> = (props) => {
          password,
       };
 
-      dispatch(actions.login(loginData));
+      dispatch(actions.login(loginData))
+         .then(r => {
+            r && props.history.push('/panel');
+         });
    };
 
    return (

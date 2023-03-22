@@ -25,7 +25,9 @@ const IncomeStats: React.FC<Props> = (props) => {
       // Get account stats for the last 30 days
       // For the first user's account
       try {
-         const res = await getStats(firstAccount._id, 30);
+         if (!firstAccount) return;
+
+         const res = await getStats(firstAccount.id, 30);
 
          setAccDetails(res.accDetails);
          setChartData(res.data);
@@ -37,7 +39,7 @@ const IncomeStats: React.FC<Props> = (props) => {
 
    useEffect(() => {
       doGetStats();
-   }, []);
+   }, [JSON.stringify(firstAccount)]);
 
    if (!isLoaded) {
       return <Loader />;
