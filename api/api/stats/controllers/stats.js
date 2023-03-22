@@ -9,8 +9,6 @@ const getMyStats = async ctx => {
 
       const getStats = await strapi.query('stats').findOne();
 
-      const accDetails = { type, currency, number };
-
       if (!getStats) {
          strapi.services.errors.throwError(400, 'No stats available, use dummy data creator');
       }

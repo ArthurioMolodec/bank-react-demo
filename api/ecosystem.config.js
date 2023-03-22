@@ -2,7 +2,7 @@ module.exports = {
    apps: [
       {
          name: "strapi",
-         cwd: "/var/www/react-bank-api",
+         cwd: "/var/www/react-bank-api/api",
          script: "npm",
          args: "start",
          env: {
