@@ -9,9 +9,22 @@ const getMyStats = async ctx => {
 
       const getStats = await strapi.query('stats').findOne();
 
+      const accDetails = { type, currency, number };
+
       if (!getStats) {
          strapi.services.errors.throwError(400, 'No stats available, use dummy data creator');
       }
+
+      const currentUser = ctx.state.user;
+
+      const myAccount = await strapi
+         .query('account')
+         .findOne({ id: accId, owner: currentUser.id });
+
+      if (!myAccount) {
+         return ctx.throw(400, 'no-account');
+      }
+
 
       // Stats: income, expenses for specific user
       const incomeStatsRes = getStats.income_stats
@@ -22,6 +35,7 @@ const getMyStats = async ctx => {
          .map(el => ({ ...el }));
 
       return {
+         accDetails: myAccount,
          data: [
             ...incomeStatsRes,
             ...expensesStatsRes   
